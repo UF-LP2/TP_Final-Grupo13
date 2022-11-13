@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace tp_final
 {
-    internal class Class1
+    internal class cLineaBlanca:cElectrodomestico
     {
+        public cLineaBlanca(int _altura, int _largo, int _ancho, int _peso, bool _aplicable) : base(_altura, _largo, _ancho, _peso, true) { }
+        ~cLineaBlanca() { }
     }
 }
