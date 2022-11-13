@@ -11,7 +11,8 @@ namespace tp_final
         protected int peso, patente;
         protected float volumen, consumo;
         protected bool aparato;
-        static int contador;
+        static int contador = 123;
+        protected List<cElectrodomestico> listaP = new List<cElectrodomestico>();
 
         public cVehiculo(int _peso, float _volumen, float _consumo)
         {
@@ -23,7 +24,9 @@ namespace tp_final
             contador++;
         }
 
-        ~cVehiculo() { }
+        ~cVehiculo() { 
+            listaP.Clear();
+        }
 
     }
 }
