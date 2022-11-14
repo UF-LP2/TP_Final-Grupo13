@@ -11,6 +11,7 @@ public class cCosimundo
 	float[,] grafo = new float[24, 24];
 	public cCosimundo()
 	{
-
+		string text = System.IO.File.ReadAllText("nodos.txt");
+		System.Console.WriteLine("Contenido del archivo = {0}", text);
 	}
 }

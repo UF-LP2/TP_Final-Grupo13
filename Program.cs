@@ -27,8 +27,9 @@ static class Program
         cElectrodomestico cpu = new cElectronico(70, 15, 20, 13500);
         cElectrodomestico impresora = new cElectronico(30, 70, 90, 24000);
         cElectrodomestico mouse = new cElectronico(10, 10, 5, 200);
-        cElectrodomestico plasma1 = new cTelevisor(...)
-
+        //cElectrodomestico plasma1 = new cTelevisor(...)
+        ApplicationConfiguration.Initialize();
+        Application.Run(cCosimundo.cs);
 
 
 
