@@ -97,17 +97,20 @@ namespace tp_final
             }
         }
         public void CargaVehiculos() {
-
-            for (int i = 0; i < this.pedidosH.Count(); i++) { 
-                
-
-            }
-        }
-
-        public void OrdenarPorPrioridad ()
-        {
+            List<cPedido> lb = new List<cPedido>();
             
+            for (int i = 0; i < pedidosH.Count(); i++) {//separamos la linea blanca
+                if (pedidosH[i].LineaB()) {
+                    lb.Add(pedidosH[i]);
+                    pedidosH.RemoveAt(i);
+                }
+            }
+            pedidosH.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//ordena la lista de pedidos hoy por peso
+
+
         }
+
+       
 
 
     }
