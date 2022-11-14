@@ -22,7 +22,9 @@ namespace tp_final
             this.pedidosD = new List<cPedido>();
             this.pedidosH = new List<cPedido>();
             this.vehiculos = new List<cVehiculo>();
+            
         }
+        
         ~cCosiMundo(){
             pedidosD.Clear();
             pedidosN.Clear();

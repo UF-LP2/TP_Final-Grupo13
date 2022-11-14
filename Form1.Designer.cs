@@ -1,4 +1,4 @@
-﻿namespace tp_final;
+﻿/*namespace tp_final;
 
 partial class Form1
 {
@@ -36,3 +36,4 @@ partial class Form1
 
     #endregion
 }
+*/

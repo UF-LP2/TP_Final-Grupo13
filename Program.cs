@@ -1,14 +1,56 @@
-namespace tp_final;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
 
-static class Program
+namespace tp_final
 {
-    /// <summary>
-    ///  The main entry point for the application.
-    /// </summary>
-    [STAThread]
-    static void Main()
+
+    static class Program
     {
-        cVehiculo furgon = new cFurgon();
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
+        //[STAThread]
+        static void Main()
+        {
+            double[,] grafo = new double[24, 24];
+            String line;
+
+            //Pass the file path and file name to the StreamReader constructor
+            StreamReader sr = new StreamReader("C:\\Users\\lolyy\\OneDrive\\Documentos\\LP2\\nodos.txt");
+            //Read the first line of text
+            line = sr.ReadLine();
+            //Continue to read until you reach end of file
+            while (line != null && line.Length > 0)
+            {
+                //write the line to console window
+                String[] linea = line.Split(',');
+                grafo[Convert.ToInt32(linea[0]) - 1, Convert.ToInt32(linea[1]) - 1] = Convert.ToDouble(linea[2]);
+                grafo[Convert.ToInt32(linea[1]) - 1, Convert.ToInt32(linea[0]) - 1] = Convert.ToDouble(linea[2]);
+                //Read the next line
+                line = sr.ReadLine();
+            }
+            //close the file
+            sr.Close();
+            Console.ReadLine();
+            int rowLength = grafo.GetLength(0);
+            int colLength = grafo.GetLength(1);
+
+            for (int i = 0; i < rowLength; i++)
+            {
+                for (int j = 0; j < colLength; j++)
+                {
+                    Console.Write(string.Format("{0} ", grafo[i, j]));
+                }
+                Console.Write(Environment.NewLine + Environment.NewLine);
+            }
+
+        }
+
+        /*cVehiculo furgon = new cFurgon();
         cVehiculo furgoneta = new cFurgoneta();
         cVehiculo camioneta = new cCamioneta();
         List<cVehiculo> vehiculos = new List<cVehiculo>() { furgon, furgoneta, camioneta };
@@ -36,20 +78,20 @@ static class Program
             lavarropas,
             monitor
         };
-  
+
         List<cElectrodomestico> lista2 = new List<cElectrodomestico>() { 
             rallador,
             impresora, 
             mouse,
             cpu
         };
-     
+
         List<cElectrodomestico> lista3 = new List<cElectrodomestico>() {
             tostadora,
             licuadora,
             secarropas
         };
-       
+
         List<cElectrodomestico> lista4 = new List<cElectrodomestico>() {
             calefon,
             heladera,
@@ -78,6 +120,6 @@ static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         // ApplicationConfiguration.Initialize();
-        // Application.Run(new Form1());
-    }    
+        // Application.Run(new Form1());*/
+    }
 }
