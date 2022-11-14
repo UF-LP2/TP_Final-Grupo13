@@ -14,7 +14,7 @@ namespace tp_final
         List<cPedido> pedidosH;
         List<cVehiculo> vehiculos;
         double[,] matrixNodos;
-
+        int viajes;
         public cCosiMundo()
         {
             this.pedidosE = new List<cPedido>();
@@ -22,6 +22,7 @@ namespace tp_final
             this.pedidosD = new List<cPedido>();
             this.pedidosH = new List<cPedido>();
             this.vehiculos = new List<cVehiculo>();
+            this.viajes = 6;
 
             this.matrixNodos = new double[24, 24];
             String line;
@@ -97,20 +98,32 @@ namespace tp_final
             }
         }
         public void CargaVehiculos() {
-            List<cPedido> lb = new List<cPedido>();
+            List<cPedido> especiales = new List<cPedido>();
             
             for (int i = 0; i < pedidosH.Count(); i++) {//separamos la linea blanca
-                if (pedidosH[i].LineaB()) {
-                    lb.Add(pedidosH[i]);
+                if (pedidosH[i].ProductoEspecial()) {
+                    especiales.Add(pedidosH[i]);
                     pedidosH.RemoveAt(i);
                 }
             }
             pedidosH.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//ordena la lista de pedidos hoy por peso
 
+            while (viajes != 0 && pedidosH.Count() != 0)
+            {
+                if(viajes == 6) //viaje del furgon
+                {
+
+                }
+            }
 
         }
 
-       
+        public List<cPedido> CargaVehiculo(List<cPedido> especiales)
+        {
+
+
+            return especiales;
+        }
 
 
     }
