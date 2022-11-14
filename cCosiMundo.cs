@@ -52,15 +52,13 @@ namespace tp_final
                 Console.Write(Environment.NewLine + Environment.NewLine);
             }*/
 
-        }
-
-    
-        
+        }        
         ~cCosiMundo(){
             pedidosD.Clear();
             pedidosN.Clear();
             pedidosE.Clear();
             vehiculos.Clear();
+          
         }
 
         public void Inicio_Programa(List<cPedido> _pedidos, List<cVehiculo> _vehiculos)//el programa se corre 1vez x dia -> al comienzo de cada dia todos los pedidos se mueven 1 posicion
@@ -79,8 +77,6 @@ namespace tp_final
                 pedidosN.Clear();
                 pedidosN[i] = pedidosD[i];
             }
-
-
         }
         public void OrdenarPedidos (List<cPedido> _pedidos){
             for(int i=0; i < _pedidos.Count(); i++){
@@ -98,6 +94,13 @@ namespace tp_final
                         pedidosD.Add(_pedidos[i]);
                         break;
                 }
+            }
+        }
+        public void CargaVehiculos() {
+
+            for (int i = 0; i < this.pedidosH.Count(); i++) { 
+
+
             }
         }
 
