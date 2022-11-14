@@ -69,7 +69,7 @@ static class Program
             pedidoD
         };
 
-        cCosiMundo empresa = new cCosiMundo(lista_pedidos, vehiculos);
+        cCosiMundo empresa = new cCosiMundo();
 
 
 
