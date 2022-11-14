@@ -30,13 +30,31 @@ static class Program
         cElectrodomestico mouse = new cElectronico(10, 10, 5, 200);
         // cElectrodomestico plasma1 = new cTelevisor(...)
 
-        List<cElectrodomestico> lista1 = new List<cElectrodomestico>() { molinillo, cafetera, lavarropas, monitor};
+        List<cElectrodomestico> lista1 = new List<cElectrodomestico>() { 
+            molinillo, 
+            cafetera,
+            lavarropas,
+            monitor
+        };
   
-        List<cElectrodomestico> lista2 = new List<cElectrodomestico>() { rallador, impresora, mouse, cpu};
+        List<cElectrodomestico> lista2 = new List<cElectrodomestico>() { 
+            rallador,
+            impresora, 
+            mouse,
+            cpu
+        };
      
-        List<cElectrodomestico> lista3 = new List<cElectrodomestico>() { tostadora, licuadora, secarropas};
+        List<cElectrodomestico> lista3 = new List<cElectrodomestico>() {
+            tostadora,
+            licuadora,
+            secarropas
+        };
        
-        List<cElectrodomestico> lista4 = new List<cElectrodomestico>() { calefon, heladera, termotanque};
+        List<cElectrodomestico> lista4 = new List<cElectrodomestico>() {
+            calefon,
+            heladera,
+            termotanque
+        };
 
         cPedido pedidoA = new cPedido(lista1, eTipo.express, 10, 3);
         cPedido pedidoB = new cPedido(lista2, eTipo.normal, 10, 3);
