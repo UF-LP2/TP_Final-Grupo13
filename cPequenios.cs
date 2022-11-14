@@ -8,7 +8,7 @@ namespace tp_final
 {
     internal class cPequenios : cElectrodomestico
     {
-        public cPequenios(int _altura, int _largo, int _ancho, int _peso, bool _aplicable) : base (_altura, _largo, _ancho, _peso, true) { }
+        public cPequenios(int _altura, int _largo, int _ancho, int _peso) : base (_altura, _largo, _ancho, _peso, true) { }
         ~cPequenios() { }
     }
 }

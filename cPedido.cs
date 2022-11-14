@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.dll;
+using System.DirectoryServices;
 
 namespace tp_final
 {
@@ -26,8 +27,6 @@ namespace tp_final
             this.listaE = _listaE;
             this.tipo = _tipo;
             this.id_pedido = contador;
-            fecha = new DateTime(2022, _mes, _dia, _hora,0,0);
-
             contador++;
         }
         ~cPedido() {
