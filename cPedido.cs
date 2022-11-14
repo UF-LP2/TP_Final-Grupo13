@@ -19,13 +19,15 @@ namespace tp_final
         protected eTipo tipo;
         protected int id_pedido;
         static int contador = 0;
-        protected var fecha = new Datetime(2000, 4, 5, 0, 0, 0);
+        protected var fecha;
 
-        public cPedido (List<cElectrodomestico> _listaE, eTipo _tipo)
+        public cPedido(List<cElectrodomestico> _listaE, eTipo _tipo, int _dia, int _mes, int _hora)
         {
             this.listaE = _listaE;
             this.tipo = _tipo;
             this.id_pedido = contador;
+            fecha = new DateTime(2022, _mes, _dia, _hora,0,0);
+
             contador++;
         }
         ~cPedido() {
