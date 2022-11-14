@@ -5,52 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace tp_final
+namespace tp_final;
+
+
+static class Program
 {
-
-    static class Program
+    /// <summary>
+    ///  The main entry point for the application.
+    /// </summary>
+    //[STAThread]
+    static void Main()
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
-        //[STAThread]
-        static void Main()
-        {
-            double[,] grafo = new double[24, 24];
-            String line;
-
-            //Pass the file path and file name to the StreamReader constructor
-            StreamReader sr = new StreamReader("C:\\Users\\lolyy\\OneDrive\\Documentos\\LP2\\nodos.txt");
-            //Read the first line of text
-            line = sr.ReadLine();
-            //Continue to read until you reach end of file
-            while (line != null && line.Length > 0)
-            {
-                //write the line to console window
-                String[] linea = line.Split(',');
-                grafo[Convert.ToInt32(linea[0]) - 1, Convert.ToInt32(linea[1]) - 1] = Convert.ToDouble(linea[2]);
-                grafo[Convert.ToInt32(linea[1]) - 1, Convert.ToInt32(linea[0]) - 1] = Convert.ToDouble(linea[2]);
-                //Read the next line
-                line = sr.ReadLine();
-            }
-            //close the file
-            sr.Close();
-            Console.ReadLine();
-            int rowLength = grafo.GetLength(0);
-            int colLength = grafo.GetLength(1);
-
-            for (int i = 0; i < rowLength; i++)
-            {
-                for (int j = 0; j < colLength; j++)
-                {
-                    Console.Write(string.Format("{0} ", grafo[i, j]));
-                }
-                Console.Write(Environment.NewLine + Environment.NewLine);
-            }
-
-        }
-
-        /*cVehiculo furgon = new cFurgon();
+        cVehiculo furgon = new cFurgon();
         cVehiculo furgoneta = new cFurgoneta();
         cVehiculo camioneta = new cCamioneta();
         List<cVehiculo> vehiculos = new List<cVehiculo>() { furgon, furgoneta, camioneta };
@@ -72,31 +38,31 @@ namespace tp_final
         cElectrodomestico mouse = new cElectronico(10, 10, 5, 200);
         // cElectrodomestico plasma1 = new cTelevisor(...)
 
-        List<cElectrodomestico> lista1 = new List<cElectrodomestico>() { 
-            molinillo, 
-            cafetera,
-            lavarropas,
-            monitor
-        };
+        List<cElectrodomestico> lista1 = new List<cElectrodomestico>() {
+        molinillo,
+        cafetera,
+        lavarropas,
+        monitor
+    };
 
-        List<cElectrodomestico> lista2 = new List<cElectrodomestico>() { 
-            rallador,
-            impresora, 
-            mouse,
-            cpu
-        };
+        List<cElectrodomestico> lista2 = new List<cElectrodomestico>() {
+        rallador,
+        impresora,
+        mouse,
+        cpu
+    };
 
         List<cElectrodomestico> lista3 = new List<cElectrodomestico>() {
-            tostadora,
-            licuadora,
-            secarropas
-        };
+        tostadora,
+        licuadora,
+        secarropas
+    };
 
         List<cElectrodomestico> lista4 = new List<cElectrodomestico>() {
-            calefon,
-            heladera,
-            termotanque
-        };
+        calefon,
+        heladera,
+        termotanque
+    };
 
         cPedido pedidoA = new cPedido(lista1, eTipo.express, 10, 3);
         cPedido pedidoB = new cPedido(lista2, eTipo.normal, 10, 3);
@@ -104,12 +70,12 @@ namespace tp_final
         cPedido pedidoD = new cPedido(lista4, eTipo.express, 10, 3);
 
         List<cPedido> lista_pedidos = new List<cPedido>()
-        {
-            pedidoA,
-            pedidoB,
-            pedidoC,
-            pedidoD
-        };
+    {
+        pedidoA,
+        pedidoB,
+        pedidoC,
+        pedidoD
+    };
 
         cCosiMundo empresa = new cCosiMundo();
         empresa.Inicio_Programa(lista_pedidos, vehiculos);
