@@ -18,13 +18,17 @@ namespace tp_final
     {
         protected List<cElectrodomestico> listaE = new List<cElectrodomestico>();
         protected eTipo tipo;
+        public eTipo Tipo
+        {
+            get { return tipo; }
+        }
         protected int id_pedido;
         static int contador = 0;
        // protected var fecha;
 
-        public cPedido (List<cElectrodomestico> _listaE, eTipo _tipo, int _mes, int _dia)
+        public cPedido (List<cElectrodomestico> _lista, eTipo _tipo, int _mes, int _dia)
         {
-            this.listaE = _listaE;
+            this.listaE = _lista;
             this.tipo = _tipo;
             this.id_pedido = contador;
             //this.fecha = new Datetime(2000, _mes, _dia, 0, 0, 0);
