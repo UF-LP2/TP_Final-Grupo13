@@ -11,9 +11,9 @@ namespace tp_final
         List<cPedido> pedidosE;
         List<cPedido> pedidosN;
         List<cPedido> pedidosD;
-         List<cPedido> pedidosH;
+        List<cPedido> pedidosH;
         List<cVehiculo> vehiculos;
-        float [,] matrixNodos = new float [24,24];
+        double[,] matrixNodos;
 
         public cCosiMundo()
         {
@@ -22,7 +22,40 @@ namespace tp_final
             this.pedidosD = new List<cPedido>();
             this.pedidosH = new List<cPedido>();
             this.vehiculos = new List<cVehiculo>();
+
+            this.matrixNodos = new double[24, 24];
+            String line;
+            StreamReader sr = new StreamReader("C:\\Users\\lolyy\\OneDrive\\Documentos\\LP2\\nodos.txt");
+            
+            line = sr.ReadLine();//lee la 1er linea del archivo
+           
+            while (line != null && line.Length > 0)//leer hasta ENDOF
+            { 
+                String[] linea = line.Split(',');//substring hasta las comas
+                matrixNodos[Convert.ToInt32(linea[0]) - 1, Convert.ToInt32(linea[1]) - 1] = Convert.ToDouble(linea[2]);
+                matrixNodos[Convert.ToInt32(linea[1]) - 1, Convert.ToInt32(linea[0]) - 1] = Convert.ToDouble(linea[2]);
+               
+                line = sr.ReadLine();
+            }
+            
+            sr.Close();
+            /*imprimir matriz
+            int rowLength = matrixNodos.GetLength(0);
+            int colLength = matrixNodos.GetLength(1);
+
+            for (int i = 0; i < rowLength; i++)
+            {
+                for (int j = 0; j < colLength; j++)
+                {
+                    Console.Write(string.Format("{0} ", matrixNodos[i, j]));
+                }
+                Console.Write(Environment.NewLine + Environment.NewLine);
+            }*/
+
         }
+
+    
+        
         ~cCosiMundo(){
             pedidosD.Clear();
             pedidosN.Clear();
