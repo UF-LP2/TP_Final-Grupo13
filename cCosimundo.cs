@@ -30,8 +30,10 @@ namespace tp_final
             vehiculos.Clear();
         }
 
-        public void Inicio_Programa()//el programa se corre 1vez x dia -> al comienzo de cada dia todos los pedidos se mueven 1 posicion
+        public void Inicio_Programa(List<cPedido> _pedidos, List<cVehiculo> _vehiculos)//el programa se corre 1vez x dia -> al comienzo de cada dia todos los pedidos se mueven 1 posicion
         {
+            this.OrdenarPedidos(_pedidos);
+
             for(int i=0; i < pedidosE.Count(); i++){
                 pedidosH.Clear();
                 pedidosH[i] = pedidosE[i];
@@ -63,16 +65,8 @@ namespace tp_final
                 }
             }
         }
-        public List<cPedido> ListaDeHoy(List<cPedido> pedidos)
-        {
-            List<cPedido> aux = new List<cPedido>();
-            for(int i = 0; i < pedidos.Count(); i++)
-            {
-                if (pedidos[i].Tipo == eTipo.express)
-                    aux.Add(pedidos[i]);
-            }
-            return aux;
-        }
+
+
 
     }
 }

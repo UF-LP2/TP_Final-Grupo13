@@ -70,7 +70,7 @@ static class Program
         };
 
         cCosiMundo empresa = new cCosiMundo();
-
+        empresa.Inicio_Programa(lista_pedidos, vehiculos);
 
 
 
