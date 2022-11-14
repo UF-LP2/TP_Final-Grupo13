@@ -12,10 +12,11 @@ namespace tp_final
         protected float largo, ancho, alto, nafta, consumo, volumen;
         protected bool aparato, ahorro;
         static int contador = 123;
+        protected int viajes;
         protected List<cElectrodomestico> listaP;
         protected float [,] espacio;
 
-        public cVehiculo(int _peso, float _largo,float _ancho, float _alto, float _nafta, bool _ahorro, float _consumo)
+        public cVehiculo(int _peso, float _largo,float _ancho, float _alto, float _nafta, bool _ahorro, float _consumo, int _viajes)
         {
             this.peso = _peso;
             this.volumen = _largo*_ancho*_alto;
@@ -24,6 +25,7 @@ namespace tp_final
             this.listaP = new List<cElectrodomestico>();
             this.ahorro = _ahorro;
             this.aparato = false;
+            this.viajes = _viajes;
             this.patente = contador;
             contador++;
             int filas = (int)_largo * 100;
