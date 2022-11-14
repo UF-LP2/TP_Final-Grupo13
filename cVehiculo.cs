@@ -9,15 +9,16 @@ namespace tp_final
     internal class cVehiculo
     {
         protected int peso, patente;
-        protected float volumen, nafta, consumo;
+        protected float largo, ancho, alto, nafta, consumo, volumen;
         protected bool aparato, ahorro;
         static int contador = 123;
         protected List<cElectrodomestico> listaP;
+        protected float [,] espacio;
 
-        public cVehiculo(int _peso, float _volumen, float _nafta, bool _ahorro, float _consumo)
+        public cVehiculo(int _peso, float _largo,float _ancho, float _alto, float _nafta, bool _ahorro, float _consumo)
         {
             this.peso = _peso;
-            this.volumen = _volumen;
+            this.volumen = _largo*_ancho*_alto;
             this.nafta = _nafta;
             this.consumo = _consumo;
             this.listaP = new List<cElectrodomestico>();
@@ -25,6 +26,12 @@ namespace tp_final
             this.aparato = false;
             this.patente = contador;
             contador++;
+            this.espacio= new float [_largo, _ancho];
+            for(int i=0; i<_largo; i++){
+                for(int j=0; j<_ancho;j++){
+                    espacio[i,j]= _alto;
+                }
+            }
         }
 
         ~cVehiculo() { 
