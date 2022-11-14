@@ -1,5 +1,5 @@
-using CsvHelper;
-using CsvHelper.Configuration;
+/*using CsvHelper;
+//using CsvHelper.Configuration;
 using System.Globalization;
 using System.Collections.Generic;
 using tp_final.Properties;
@@ -46,4 +46,4 @@ public class Pedido {
     public string? prioridad { get; set; }
     public string? barrio { get; set; }
     public DateTime fecha { get; set; }
-}
+}*/

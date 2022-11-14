@@ -1,11 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
 namespace tp_final;
+
 
 static class Program
 {
     /// <summary>
     ///  The main entry point for the application.
     /// </summary>
-    [STAThread]
+    //[STAThread]
     static void Main()
     {
         cVehiculo furgon = new cFurgon();
@@ -30,31 +38,31 @@ static class Program
         cElectrodomestico mouse = new cElectronico(10, 10, 5, 200);
         // cElectrodomestico plasma1 = new cTelevisor(...)
 
-        List<cElectrodomestico> lista1 = new List<cElectrodomestico>() { 
-            molinillo, 
-            cafetera,
-            lavarropas,
-            monitor
-        };
-  
-        List<cElectrodomestico> lista2 = new List<cElectrodomestico>() { 
-            rallador,
-            impresora, 
-            mouse,
-            cpu
-        };
-     
+        List<cElectrodomestico> lista1 = new List<cElectrodomestico>() {
+        molinillo,
+        cafetera,
+        lavarropas,
+        monitor
+    };
+
+        List<cElectrodomestico> lista2 = new List<cElectrodomestico>() {
+        rallador,
+        impresora,
+        mouse,
+        cpu
+    };
+
         List<cElectrodomestico> lista3 = new List<cElectrodomestico>() {
-            tostadora,
-            licuadora,
-            secarropas
-        };
-       
+        tostadora,
+        licuadora,
+        secarropas
+    };
+
         List<cElectrodomestico> lista4 = new List<cElectrodomestico>() {
-            calefon,
-            heladera,
-            termotanque
-        };
+        calefon,
+        heladera,
+        termotanque
+    };
 
         cPedido pedidoA = new cPedido(lista1, eTipo.express, 10, 3);
         cPedido pedidoB = new cPedido(lista2, eTipo.normal, 10, 3);
@@ -62,12 +70,12 @@ static class Program
         cPedido pedidoD = new cPedido(lista4, eTipo.express, 10, 3);
 
         List<cPedido> lista_pedidos = new List<cPedido>()
-        {
-            pedidoA,
-            pedidoB,
-            pedidoC,
-            pedidoD
-        };
+    {
+        pedidoA,
+        pedidoB,
+        pedidoC,
+        pedidoD
+    };
 
         cCosiMundo empresa = new cCosiMundo();
         empresa.Inicio_Programa(lista_pedidos, vehiculos);
@@ -78,6 +86,6 @@ static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         // ApplicationConfiguration.Initialize();
-        // Application.Run(new Form1());
-    }    
+        // Application.Run(new Form1());*/
+    }
 }
