@@ -99,9 +99,14 @@ namespace tp_final
         public void CargaVehiculos() {
 
             for (int i = 0; i < this.pedidosH.Count(); i++) { 
-
+                
 
             }
+        }
+
+        public void OrdenarPorPrioridad ()
+        {
+            
         }
 
 

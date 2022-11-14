@@ -12,6 +12,14 @@ namespace tp_final
         static int contador = 0;
         protected int altura, ancho, largo;
         protected int volumen, peso;
+        public int Volumen
+        {
+            get { return volumen; }
+        }
+        public int Peso
+        {
+            get { return peso; }
+        }
         protected bool apilable;
     
         public cElectrodomestico(int _altura, int _largo, int _ancho, int _peso, bool _apilable)

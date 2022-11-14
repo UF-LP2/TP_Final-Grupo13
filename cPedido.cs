@@ -18,6 +18,15 @@ namespace tp_final
     {
         protected List<cElectrodomestico> listaE = new List<cElectrodomestico>();
         protected eTipo tipo;
+        protected int volumen_tot, peso_tot;
+        public int Vol_tot
+        {
+            get { return volumen_tot; }
+        }
+        public int Peso_tot
+        {
+            get { return peso_tot; }
+        }
         public eTipo Tipo
         {
             get { return tipo; }
@@ -32,6 +41,11 @@ namespace tp_final
             this.tipo = _tipo;
             this.id_pedido = contador;
             //this.fecha = new Datetime(2000, _mes, _dia, 0, 0, 0);
+            for (int i = 0; i < _lista.Count(); i++)
+            {
+                volumen_tot += _lista[i].Volumen;
+                peso_tot += _lista[i].Peso;
+            }
             contador++;
         }
         ~cPedido() {
