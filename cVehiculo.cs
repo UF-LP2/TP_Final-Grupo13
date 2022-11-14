@@ -26,7 +26,9 @@ namespace tp_final
             this.aparato = false;
             this.patente = contador;
             contador++;
-            this.espacio= new float [_largo, _ancho];
+            int filas = (int)_largo * 100;
+            int columnas = (int)_ancho * 100;
+            this.espacio= new float [filas, columnas];
             for(int i=0; i<_largo; i++){
                 for(int j=0; j<_ancho;j++){
                     espacio[i,j]= _alto;

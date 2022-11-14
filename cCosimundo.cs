@@ -13,7 +13,7 @@ namespace tp_final
         List<cPedido> pedidosD;
          List<cPedido> pedidosH;
         List<cVehiculo> vehiculos;
-        float [,] matrixNodos = float [24,24];
+        float [,] matrixNodos = new float [24,24];
 
         public cCosiMundo()
         {
@@ -47,7 +47,7 @@ namespace tp_final
         }
         public void OrdenarPedidos (List<cPedido> _pedidos){
             for(int i=0; i < _pedidos.Count();i++){
-                switch (_pedidos[i].Tipo){
+                switch ((uint)_pedidos[i].Tipo){
                     case 1:
                         pedidosE.Add(_pedidos[i]);
                         break;
