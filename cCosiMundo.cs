@@ -13,7 +13,7 @@ namespace tp_final
         List<cPedido> pedidosD;
          List<cPedido> pedidosH;
         List<cVehiculo> vehiculos;
-        float [,] matrixNodos = float [24,24];
+        float[,] matrixNodos = float[24,24];
 
         public cCosiMundo()
         {
