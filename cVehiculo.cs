@@ -29,9 +29,9 @@ namespace tp_final
             int filas = (int)_largo * 100;
             int columnas = (int)_ancho * 100;
             this.espacio= new float [filas, columnas];
-            for(int i=0; i<_largo; i++){
-                for(int j=0; j<_ancho;j++){
-                    espacio[i,j]= _alto;
+            for(int i = 0; i < filas; i++){
+                for(int j = 0; j < columnas; j++){
+                    espacio[i,j] = _alto;
                 }
             }
         }
