@@ -30,35 +30,44 @@ static class Program
         cElectrodomestico mouse = new cElectronico(10, 10, 5, 200);
         // cElectrodomestico plasma1 = new cTelevisor(...)
 
-        List<cElectrodomestico> lista1 = new List<cElectrodomestico>();
-        lista1.Add(molinillo);
-        lista1.Add(cafetera);
-        lista1.Add(lavarropas);
-        lista1.Add(monitor);
-        List<cElectrodomestico> lista2 = new List<cElectrodomestico>();
-        lista2.Add(rallador);
-        lista2.Add(impresora);
-        lista2.Add(mouse); 
-        lista2.Add(cpu);
-        List<cElectrodomestico> lista3 = new List<cElectrodomestico>();
-        lista3.Add(tostadora);
-        lista3.Add(licuadora);
-        lista3.Add(secarropas);
-        List<cElectrodomestico> lista4 = new List<cElectrodomestico>();
-        lista4.Add(calefon);
-        lista4.Add(heladera);
-        lista4.Add(termotanque);
+        List<cElectrodomestico> lista1 = new List<cElectrodomestico>() { 
+            molinillo, 
+            cafetera,
+            lavarropas,
+            monitor
+        };
+  
+        List<cElectrodomestico> lista2 = new List<cElectrodomestico>() { 
+            rallador,
+            impresora, 
+            mouse,
+            cpu
+        };
+     
+        List<cElectrodomestico> lista3 = new List<cElectrodomestico>() {
+            tostadora,
+            licuadora,
+            secarropas
+        };
+       
+        List<cElectrodomestico> lista4 = new List<cElectrodomestico>() {
+            calefon,
+            heladera,
+            termotanque
+        };
 
         cPedido pedidoA = new cPedido(lista1, eTipo.express, 10, 3);
         cPedido pedidoB = new cPedido(lista2, eTipo.normal, 10, 3);
         cPedido pedidoC = new cPedido(lista3, eTipo.diferido, 10, 3);
         cPedido pedidoD = new cPedido(lista4, eTipo.express, 10, 3);
 
-        List<cPedido> lista_pedidos = new List<cPedido>();
-        lista_pedidos.Add(pedidoA);
-        lista_pedidos.Add(pedidoB);
-        lista_pedidos.Add(pedidoC);
-        lista_pedidos.Add(pedidoD);
+        List<cPedido> lista_pedidos = new List<cPedido>()
+        {
+            pedidoA,
+            pedidoB,
+            pedidoC,
+            pedidoD
+        };
 
         cCosiMundo empresa = new cCosiMundo(lista_pedidos, vehiculos);
 
