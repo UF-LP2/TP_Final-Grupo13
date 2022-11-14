@@ -46,6 +46,8 @@ namespace tp_final
                 pedidosN.Clear();
                 pedidosN[i] = pedidosD[i];
             }
+
+
         }
         public void OrdenarPedidos (List<cPedido> _pedidos){
             for(int i=0; i < _pedidos.Count(); i++){
