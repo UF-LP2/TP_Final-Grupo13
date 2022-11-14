@@ -12,15 +12,15 @@ namespace tp_final
         protected float volumen, nafta, consumo;
         protected bool aparato, ahorro;
         static int contador = 123;
-        protected List<cElectrodomestico> listaP = new List<cElectrodomestico>();
+        protected List<cElectrodomestico> listaP;
 
-        public cVehiculo(int _peso, float _volumen, float _nafta, List<cElectrodomestico> _lista, bool _ahorro, float _consumo)
+        public cVehiculo(int _peso, float _volumen, float _nafta, bool _ahorro, float _consumo)
         {
             this.peso = _peso;
             this.volumen = _volumen;
             this.nafta = _nafta;
             this.consumo = _consumo;
-            this.listaP = _lista;
+            this.listaP = new List<cElectrodomestico>();
             this.ahorro = _ahorro;
             this.aparato = false;
             this.patente = contador;
