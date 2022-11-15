@@ -146,6 +146,10 @@ namespace tp_final
 
         public int CargaVehiculo(cVehiculo vehiculo, int cont_espe)
         {
+            for(int y = 0; y < pedidosH.Count; y++)
+            {
+                pedidosH[y].SettearTele(vehiculo);  //a las televiciones le ponemos la altura del vehiculo
+            }
             int l;
             List<int> vol = new List<int>();
             List<int> peso = new List<int>();
