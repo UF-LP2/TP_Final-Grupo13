@@ -12,11 +12,15 @@ namespace tp_final
         protected float largo, ancho, alto, nafta, consumo, volumen;
         public float Volumen
         {
-            get { return volumen * 1000000; }
+            get { return volumen; }
         }
         protected bool aparato, ahorro;
         static int contador = 123;
-        protected List<cPedido> listaP;
+        protected List<cPedido> repartos;
+        public List<cPedido> Repartos
+        {
+            get { return repartos; }
+        }
         protected float [,] espacio;
 
         public cVehiculo(int _peso, float _largo,float _ancho, float _alto, float _nafta, bool _ahorro, float _consumo)
@@ -25,7 +29,7 @@ namespace tp_final
             this.volumen = _largo*_ancho*_alto;
             this.nafta = _nafta;
             this.consumo = _consumo;
-            this.listaP = new List<cPedido>();
+            this.repartos = new List<cPedido>();
             this.ahorro = _ahorro;
             this.aparato = false;
             this.patente = contador;
@@ -41,7 +45,7 @@ namespace tp_final
         }
 
         ~cVehiculo() { 
-            listaP.Clear();
+            repartos.Clear();
         }
 
     }

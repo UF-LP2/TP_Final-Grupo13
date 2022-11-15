@@ -65,19 +65,29 @@ namespace tp_final
         public void Inicio_Programa(List<cPedido> _pedidos, List<cVehiculo> _vehiculos)//el programa se corre 1vez x dia -> al comienzo de cada dia todos los pedidos se mueven 1 posicion
         {
             this.OrdenarPedidos(_pedidos);
+            int i, j;
+            pedidosH.Clear();
+            for (i=0; i < pedidosE.Count(); i++){
+                pedidosH.Add(pedidosE[i]);
+            }
 
-            for(int i=0; i < pedidosE.Count(); i++){
-                pedidosH.Clear();
-                pedidosH[i] = pedidosE[i];
+            pedidosE.Clear();
+            for (i=0; i < pedidosN.Count(); i++){
+                pedidosE.Add(pedidosN[i]);
             }
-            for(int i=0; i < pedidosN.Count(); i++){
-                pedidosE.Clear();
-                pedidosE[i] = pedidosN[i];
+
+            pedidosN.Clear();
+            for (i=0; i < pedidosD.Count(); i++){
+                pedidosN.Add(pedidosD[i]);
             }
-            for(int i=0; i < pedidosD.Count(); i++){
-                pedidosN.Clear();
-                pedidosN[i] = pedidosD[i];
+
+            for (j = 0; j < _vehiculos.Count(); j++)
+            {
+                vehiculos.Add(_vehiculos[i]);
             }
+
+            //Empiezo el llenado de vehiculos y el despachado 
+            RepartoPedidosHoy();
         }
         public void OrdenarPedidos (List<cPedido> _pedidos){
             for(int i=0; i < _pedidos.Count(); i++){
@@ -97,52 +107,62 @@ namespace tp_final
                 }
             }
         }
-        public void CargaVehiculos() {
-            List<cPedido> especiales = new List<cPedido>();
+        public void RepartoPedidosHoy() {
+            List<cPedido> especiales = new List<cPedido>(); //para poder ordenar bien la lista MAY -> MEN, pero con la LB y las teles adelante
             int i, cont_especiales = 0;
-            for (i = 0; i < pedidosH.Count(); i++) {//separamos la linea blanca
+            for (i = 0; i < pedidosH.Count(); i++) {//separamos la linea blanca y a los televisores
+
                 if (pedidosH[i].ProductoEspecial()) {
                     especiales.Add(pedidosH[i]);
                     pedidosH.RemoveAt(i);
                     cont_especiales++;
                 }
             }
+
             pedidosH.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//ordena la lista de pedidos hoy por peso
+
             for (i = 0; i < cont_especiales + 1; i++)
-            {
-                pedidosH.Add(especiales[i]);
-            }
-            pedidosH.Reverse(); //doy vuelta la lista para que mem queden especiales y despues de mayor peso a menor
+                pedidosH.Add(especiales[i]);          //agrego los especiales al final
+            
+            pedidosH.Reverse(); //doy vuelta la lista para que queden especiales y despues de mayor peso a menor
 
             while (viajes != 0 && pedidosH.Count() != 0)
             {
                 if(viajes == 6) //viaje del furgon
-                {
+                    cont_especiales = CargaVehiculo(vehiculos[0], cont_especiales);
 
-                }
+                if (viajes == 5)
+                    cont_especiales = CargaVehiculo(vehiculos[1], cont_especiales);
+
+                if (viajes < 5)
+                    cont_especiales = CargaVehiculo(vehiculos[3], cont_especiales);
+                viajes--;
             }
+
+            // SE TERMINAN LOS VIAJES POR HOY -> SE SUPONE QUE NO HAY MAS PEDIDOS QUE LOS QUE SE PUEDEN ENTREGAR EN UN DIA
+            // HAY QUE HACERLE UN CIERRE
 
         }
 
-        public List<cPedido> CargaVehiculo(List<cPedido> pedidos, cVehiculo vehiculo, int cant_espe)
+        public int CargaVehiculo(cVehiculo vehiculo, int cont_espe)
         {
-            bool seguir = true;
+
             int l;
             List<int> vol = new List<int>();
-            for (l = 0; l < pedidos.Count(); l++)
+            for (l = 0; l < pedidosH.Count(); l++)
             {
-                vol.Add(pedidos[l].Vol_tot);
+                vol.Add(pedidosH[l].Vol_tot);
             }
             List<int> val = new List<int>();  //val o beneficio son 1 - 2 - 5
-            for (l = 0; l < pedidos.Count(); l++)
+            for (l = 0; l < pedidosH.Count(); l++)
             {
-                if (l < cant_espe)
-                    val.Add(5);     //le pongo prioridad 5 a todo los de lineablanca
+                if (l < cont_espe)
+                    val.Add(5);     //le pongo prioridad 5 a todo los de lineablanca o televisores
                 else
                     val.Add(1);  //CAMBIAR
             }
 
-            int elementos = pedidos.Count();
+            int elementos = pedidosH.Count();
             int espacio = (int)vehiculo.Volumen;
             int i, j;
             int[,] CAP = new int[elementos, espacio + 1]; //filas = elementos , columnas = volumen
@@ -150,28 +170,28 @@ namespace tp_final
             for (i = 0; i < elementos; i++) //i representa los elementos
             {
 
-                for (j = 0; j < espacio; j++)
+                for (j = 0; j < espacio; j++) //j representa las instancias de volumenes
                 {
                     int volElem_i = vol[i];
                     int gananciaElem_i = val[i];
-                    if (i == 0)
+                    if (i == 0)                                //FALTA LA DOBLE CONDICION PARA EL PESO
                     {
-                        if (j < vol[i])
+                        if (j < volElem_i)
                         {
                             CAP[i, j] = 0;
                         }
                         else
                         {
-                            CAP[i, j] = val[i];
+                            CAP[i, j] = gananciaElem_i;
                         }
                     }
                     else
                     {
                         int anterior = CAP[i - 1, j];
                         int mejor = 0;
-                        if (j - vol[i] >= 0)
+                        if (j - volElem_i >= 0)
                         {
-                            mejor = CAP[i - 1, j - vol[i]] + val[i];
+                            mejor = CAP[i - 1, j - volElem_i] + gananciaElem_i;
                         }
                         if (anterior > mejor)
                         {
@@ -185,49 +205,56 @@ namespace tp_final
                 }
             }
 
+            //en una lista booleana infora si lleva o no el elemento, true = lleva / false = nolleva
             List<bool> entrantes = new List<bool>();
             i = elementos - 1;
             j = espacio;
-
+            //recorre la matriz de forma inversa, dch-abajo -> izq-arriba 
             while (true)
             {
                 int mejor = 0;
+                if (i == 0)  //cuando llega a la ultima pos o ultimo elemento
+                {
+                    if (CAP[i,j] != 0)
+                        entrantes.Add(true);
+                    break;
+                }
+          
                 if (j - vol[i] >= 0)
                 {
                     mejor = CAP[i - 1, j - vol[i]] + val[i];
                 }
 
                 int anterior = CAP[i - 1, j];
-                if (mejor > anterior)
+                if (mejor > anterior) //no toma el =
                 {
                     j = j - vol[i];
-                    entrantes[i] = true;
+                    entrantes.Add(true);
                 }
                 else
                 {
-                    entrantes[i] = false;
+                    entrantes.Add(false);
                 }
                 i = i - 1;
-
+                
                 if (j < 0)
                     break;
             }
+            entrantes.Reverse(); //invierto la lista porq me queda al reves cuando se llena
 
-            seguir = ChequearEspacio(entrantes);
-
-
-
-            return pedidos; //cambiar lista
-        }
-
-        public bool ChequearEspacio(List<bool> lista)
-        {
-            for (int i = 0; i < lista.Count(); i++)
+            int k;
+            for (k = 0; k < pedidosH.Count(); k++)
             {
-                if (lista[i] == false)
-                    return false;
+                if (entrantes[k] == true) //si en la lista booleana marca que lo llevo se lo agrego al camion y se lo saco a pedidos
+                {
+                    vehiculo.Repartos.Add(pedidosH[k]);
+                    if (pedidosH[k].ProductoEspecial() == true)
+                        cont_espe--;
+                    pedidosH.RemoveAt(k);
+                }
             }
-            return true;
+       
+            return cont_espe; 
         }
 
     }
