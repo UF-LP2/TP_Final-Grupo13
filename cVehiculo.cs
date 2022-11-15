@@ -10,6 +10,10 @@ namespace tp_final
     {
         protected int peso, patente;
         protected float largo, ancho, alto, nafta, consumo, volumen;
+        public float Volumen
+        {
+            get { return volumen * 1000000; }
+        }
         protected bool aparato, ahorro;
         static int contador = 123;
         protected List<cElectrodomestico> listaP;
@@ -28,7 +32,7 @@ namespace tp_final
             contador++;
             int filas = (int)_largo * 100;
             int columnas = (int)_ancho * 100;
-            this.espacio= new float [filas, columnas];
+            this.espacio = new float [filas, columnas];
             for(int i = 0; i < filas; i++){
                 for(int j = 0; j < columnas; j++){
                     espacio[i,j] = _alto;

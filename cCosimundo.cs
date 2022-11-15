@@ -118,9 +118,91 @@ namespace tp_final
 
         }
 
-        public List<cPedido> CargaVehiculo(List<cPedido> especiales)
+        public List<cPedido> CargaVehiculo(List<cPedido> especiales, cVehiculo vehiculo)
         {
+            List<int> vol = new List<int>();
+            //lleno la lista de volumen con los elementos de especiales
+            List<int> val = new List<int>();
+            //lleno la lista de valores/beneficios con los valores que creo de los elem de los especiales
 
+            int elementos = especiales.Count();
+            int espacio = (int)vehiculo.Volumen;
+            int i, j;
+            int[,] CAP = new int[elementos, espacio + 1]; //filas = elementos , columnas = volumen
+
+            for (i = 0; i < elementos; i++) //i representa los elementos
+            {
+
+                for (j = 0; j < espacio; j++)
+                {
+                    int volElem_i = vol[i];
+                    int gananciaElem_i = val[i];
+                    /*
+                     BMAX[1,j] = val[i] si j >= volElem_i
+                               = 0 en cualquier otro caso
+
+                     BMAX[i,j] = Max(BMAX[ i-1, j ], 
+                                     BMAX[ i-1, j-vol[i] ] + val[i])
+                     */
+                    if (i == 0)
+                    {
+                        if (j < vol[i])
+                        {
+                            CAP[i, j] = 0;
+                        }
+                        else
+                        {
+                            CAP[i, j] = val[i];
+                        }
+                    }
+                    else
+                    {
+                        int MAX = 0;
+                        int anterior = CAP[i - 1, j];
+                        int mejor = 0;
+                        if (j - vol[i] >= 0)
+                        {
+                            mejor = CAP[i - 1, j - vol[i]] + val[i];
+                        }
+                        if (anterior > mejor)
+                        {
+                            CAP[i, j] = anterior;
+                        }
+                        else
+                        {
+                            CAP[i, j] = mejor;
+                        }
+                    }
+                }
+            }
+
+            List<bool> entrantes = new List<bool>();
+            i = elementos - 1;
+            j = espacio;
+
+            while (true)
+            {
+                int mejor = 0;
+                if (j - vol[i] >= 0)
+                {
+                    mejor = CAP[i - 1, j - vol[i]] + val[i];
+                }
+
+                int anterior = CAP[i - 1, j];
+                if (mejor > anterior)
+                {
+                    j = j - vol[i];
+                    entrantes[i] = true;
+                }
+                else
+                {
+                    entrantes[i] = false;
+                }
+                i = i - 1;
+
+                if (j < 0)
+                    break;
+            }
 
             return especiales;
         }
