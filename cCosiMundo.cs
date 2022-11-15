@@ -157,7 +157,7 @@ namespace tp_final
                     }
                     else
                     {
-                        int MAX = 0;
+                        //int MAX = 0;
                         int anterior = CAP[i - 1, j];
                         int mejor = 0;
                         if (j - vol[i] >= 0)
