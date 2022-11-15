@@ -16,6 +16,9 @@ static class Program
     //[STAThread]
     static void Main()
     {
+
+        // TODO VOLUMEN VA EN M3 / PESO EN G
+
         cVehiculo furgon = new cFurgon();
         cVehiculo furgoneta = new cFurgoneta();
         cVehiculo camioneta = new cCamioneta();
@@ -30,7 +33,7 @@ static class Program
         cElectrodomestico calefon = new cLineaBlanca(250, 50, 40, 80000);
         cElectrodomestico lavarropas = new cLineaBlanca(100, 100, 80, 46000);
         cElectrodomestico heladera = new cLineaBlanca(320, 70, 120, 23000);
-        cElectrodomestico termotanque = new cLineaBlanca(480, 120, 120, 70500);
+        cElectrodomestico termotanque = new cLineaBlanca(380, 120, 120, 70500);
         cElectrodomestico secarropas = new cLineaBlanca(100, 100, 90, 54500);
         cElectrodomestico monitor = new cElectronico(40, 50, 10, 400);
         cElectrodomestico cpu = new cElectronico(70, 15, 20, 13500);

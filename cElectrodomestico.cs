@@ -10,9 +10,9 @@ namespace tp_final
     {
         protected int id_elec;
         static int contador = 0;
-        protected int altura, ancho, largo;
-        protected int volumen, peso;
-        public int Volumen
+        protected int altura, ancho, largo, peso;
+        protected float volumen;
+        public float Volumen
         {
             get { return volumen; }
         }
@@ -24,7 +24,7 @@ namespace tp_final
     
         public cElectrodomestico(int _altura, int _largo, int _ancho, int _peso, bool _apilable)
         {
-            this.volumen = _largo * _ancho * _altura;
+            this.volumen = _largo * _ancho * _altura / (float)1000000; //convierto de cm3 a m3 
             this.peso = _peso;
             this.apilable = _apilable;
             this.id_elec = contador;

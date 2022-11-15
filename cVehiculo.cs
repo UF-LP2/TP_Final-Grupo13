@@ -9,6 +9,10 @@ namespace tp_final
     internal class cVehiculo
     {
         protected int peso, patente;
+        public int Peso
+        {
+            get { return peso; }
+        }
         protected float largo, ancho, alto, nafta, consumo, volumen;
         public float Volumen
         {

@@ -149,21 +149,26 @@ namespace tp_final
 
             int l;
             List<int> vol = new List<int>();
+            List<int> peso = new List<int>();
+            int acumPeso = 0;
             for (l = 0; l < pedidosH.Count(); l++)
             {
-                vol.Add(pedidosH[l].Vol_tot);
+                vol.Add((int)pedidosH[l].Vol_tot); 
+                peso.Add(pedidosH[l].Peso_tot);
             }
+           
             List<int> val = new List<int>();  //val o beneficio son 1 - 2 - 5
             for (l = 0; l < pedidosH.Count(); l++)
             {
                 if (l < cont_espe)
                     val.Add(5);     //le pongo prioridad 5 a todo los de lineablanca o televisores
                 else
-                    val.Add(1);  //CAMBIAR
+                    val.Add(1);  
             }
 
             int elementos = pedidosH.Count();
-            int espacio = (int)vehiculo.Volumen;
+            int espacio = (int)vehiculo.Volumen; 
+            int peso_permitido = vehiculo.Peso;
             int i, j;
             int[,] CAP = new int[elementos, espacio + 1]; //filas = elementos , columnas = volumen
 
@@ -174,7 +179,7 @@ namespace tp_final
                 {
                     int volElem_i = vol[i];
                     int gananciaElem_i = val[i];
-                    if (i == 0)                                //FALTA LA DOBLE CONDICION PARA EL PESO
+                    if (i == 0)                                
                     {
                         if (j < volElem_i)
                         {
@@ -193,13 +198,14 @@ namespace tp_final
                         {
                             mejor = CAP[i - 1, j - volElem_i] + gananciaElem_i;
                         }
-                        if (anterior > mejor)
+                        if (anterior <= mejor && acumPeso + peso[i] <= peso_permitido) // me fijo que sea mejor el nuevo y que este bajo el peso permitido
                         {
-                            CAP[i, j] = anterior;
+                            CAP[i, j] = mejor;
+                            acumPeso += peso[i];
                         }
                         else
                         {
-                            CAP[i, j] = mejor;
+                            CAP[i, j] = anterior;
                         }
                     }
                 }
