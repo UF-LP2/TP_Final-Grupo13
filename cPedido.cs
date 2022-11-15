@@ -53,13 +53,22 @@ namespace tp_final
         ~cPedido() {
             listaE.Clear();
         }
-        public bool ProductoEspecial() {
-            for (int i = 0; i < listaE.Count(); i++) {
-                if (listaE[i].GetType() == typeof(cLineaBlanca) || listaE[i].GetType() == typeof(cTelevisor)) {
+        public bool ProductoEspecial()
+        {
+            for (int i = 0; i < listaE.Count(); i++)
+            {
+                if (listaE[i].GetType() == typeof(cLineaBlanca) || listaE[i].GetType() == typeof(cTelevisor))
                     return true;
-                }
             }
             return false;
+        }
+        public void SettearTele(cVehiculo vehiculo)
+        {
+            for (int i = 0; i < listaE.Count(); i++)
+            {
+                if (listaE[i].GetType() == typeof(cTelevisor))
+                    listaE[i].SetAltura((int)vehiculo.Alto * 100);
+            }
         }
     }
 }

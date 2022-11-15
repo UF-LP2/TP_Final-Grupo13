@@ -11,6 +11,11 @@ namespace tp_final
         protected int id_elec;
         static int contador = 0;
         protected int altura, ancho, largo, peso;
+        
+        public void SetAltura(int _altura)
+        {
+            this.altura = _altura;
+        }
         protected float volumen;
         public float Volumen
         {

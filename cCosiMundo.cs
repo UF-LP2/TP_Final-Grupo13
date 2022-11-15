@@ -146,7 +146,6 @@ namespace tp_final
 
         public int CargaVehiculo(cVehiculo vehiculo, int cont_espe)
         {
-
             int l;
             List<int> vol = new List<int>();
             List<int> peso = new List<int>();

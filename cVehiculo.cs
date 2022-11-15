@@ -14,6 +14,11 @@ namespace tp_final
             get { return peso; }
         }
         protected float largo, ancho, alto, nafta, consumo, volumen;
+
+        public float Alto
+        {
+            get { return alto; }
+        }
         public float Volumen
         {
             get { return volumen; }
