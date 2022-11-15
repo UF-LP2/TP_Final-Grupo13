@@ -265,6 +265,58 @@ namespace tp_final
        
             return cont_espe; 
         }
+        public Dictionary<int, double> Adyacentes(double[,] matrixCostos, int _nodo)
+        {
+            Dictionary<int, double> r = new Dictionary<int, double>();
+            for (int i = 0; i < 24; i++)
+            {
+                if (i != _nodo && matrixCostos[i, _nodo] > 0)
+                    r.Add(i, matrixCostos[i, _nodo]);
+            }
+            return r;
+        }
+        public Stack<int> ConvertirDaQ(Dictionary<int, int> dic, int _inicio, int _fin, double[,] matrixCostos)
+        {
+            Stack<int> r = new Stack<int>();
+            r.Push(_inicio);
+            r.Push(_fin);
+            while (dic[r.Peek()] != -1)
+            {
+                r.Push(dic[r.Peek()]);
+            }
+            return r;
+        }
+        public Stack<int> CaminoMinimo(double[,] matrixCostos, int _inicio, int _fin)
+        {
+            int n = 24; //ver si se puede hacer gobal
+            var distancias = new Dictionary<int, double>();
+            var padre = new Dictionary<int, int>();
+            for (int i = 0; i < n; i++)
+            {
+                distancias[i] = 2147483647;
+            }
+            distancias[_inicio] = 0;
+            padre[_inicio] = -1;
+            Queue<int> cola_de_ejecución = new Queue<int>();
+            cola_de_ejecución.Enqueue(_inicio);
+            while (cola_de_ejecución.Count != 0)
+            {
+                int v = cola_de_ejecución.Dequeue();
+                if (v == _fin)
+                    return ConvertirDaQ(padre, _inicio, _fin, matrixCostos);
+                foreach (KeyValuePair<int, double> ady in Adyacentes(matrixCostos, v))//cada adyacente del nodo v
+                {
+                    if (distancias[v] + ady.Value < distancias[ady.Key])
+                    {
+                        distancias[ady.Key] = distancias[v] + ady.Value;
+                        padre[ady.Key] = v;
+                    }
+                    cola_de_ejecución.Enqueue(ady.Key);
+                }
+
+            }
+            return ConvertirDaQ(padre, _inicio, _fin, matrixCostos);
+        }
 
     }
 }
