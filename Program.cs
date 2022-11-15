@@ -64,10 +64,10 @@ static class Program
         termotanque
     };
 
-        cPedido pedidoA = new cPedido(lista1, eTipo.express, 10, 3);
-        cPedido pedidoB = new cPedido(lista2, eTipo.normal, 10, 3);
-        cPedido pedidoC = new cPedido(lista3, eTipo.diferido, 10, 3);
-        cPedido pedidoD = new cPedido(lista4, eTipo.express, 10, 3);
+        cPedido pedidoA = new cPedido(lista1, eTipo.express, 10, 3, 4);
+        cPedido pedidoB = new cPedido(lista2, eTipo.normal, 10, 3, 12);
+        cPedido pedidoC = new cPedido(lista3, eTipo.diferido, 10, 3, 9);
+        cPedido pedidoD = new cPedido(lista4, eTipo.express, 10, 3, 1);
 
         List<cPedido> lista_pedidos = new List<cPedido>()
     {

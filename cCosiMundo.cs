@@ -99,14 +99,20 @@ namespace tp_final
         }
         public void CargaVehiculos() {
             List<cPedido> especiales = new List<cPedido>();
-            
-            for (int i = 0; i < pedidosH.Count(); i++) {//separamos la linea blanca
+            int i, cont_especiales = 0;
+            for (i = 0; i < pedidosH.Count(); i++) {//separamos la linea blanca
                 if (pedidosH[i].ProductoEspecial()) {
                     especiales.Add(pedidosH[i]);
                     pedidosH.RemoveAt(i);
+                    cont_especiales++;
                 }
             }
             pedidosH.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//ordena la lista de pedidos hoy por peso
+            for (i = 0; i < cont_especiales + 1; i++)
+            {
+                pedidosH.Add(especiales[i]);
+            }
+            pedidosH.Reverse(); //doy vuelta la lista para que mem queden especiales y despues de mayor peso a menor
 
             while (viajes != 0 && pedidosH.Count() != 0)
             {
@@ -118,14 +124,25 @@ namespace tp_final
 
         }
 
-        public List<cPedido> CargaVehiculo(List<cPedido> especiales, cVehiculo vehiculo)
+        public List<cPedido> CargaVehiculo(List<cPedido> pedidos, cVehiculo vehiculo, int cant_espe)
         {
+            bool seguir = true;
+            int l;
             List<int> vol = new List<int>();
-            //lleno la lista de volumen con los elementos de especiales
-            List<int> val = new List<int>();
-            //lleno la lista de valores/beneficios con los valores que creo de los elem de los especiales
+            for (l = 0; l < pedidos.Count(); l++)
+            {
+                vol.Add(pedidos[l].Vol_tot);
+            }
+            List<int> val = new List<int>();  //val o beneficio son 1 - 2 - 5
+            for (l = 0; l < pedidos.Count(); l++)
+            {
+                if (l < cant_espe)
+                    val.Add(5);     //le pongo prioridad 5 a todo los de lineablanca
+                else
+                    val.Add(1);  //CAMBIAR
+            }
 
-            int elementos = especiales.Count();
+            int elementos = pedidos.Count();
             int espacio = (int)vehiculo.Volumen;
             int i, j;
             int[,] CAP = new int[elementos, espacio + 1]; //filas = elementos , columnas = volumen
@@ -137,13 +154,6 @@ namespace tp_final
                 {
                     int volElem_i = vol[i];
                     int gananciaElem_i = val[i];
-                    /*
-                     BMAX[1,j] = val[i] si j >= volElem_i
-                               = 0 en cualquier otro caso
-
-                     BMAX[i,j] = Max(BMAX[ i-1, j ], 
-                                     BMAX[ i-1, j-vol[i] ] + val[i])
-                     */
                     if (i == 0)
                     {
                         if (j < vol[i])
@@ -157,7 +167,6 @@ namespace tp_final
                     }
                     else
                     {
-                        //int MAX = 0;
                         int anterior = CAP[i - 1, j];
                         int mejor = 0;
                         if (j - vol[i] >= 0)
@@ -204,9 +213,22 @@ namespace tp_final
                     break;
             }
 
-            return especiales;
+            seguir = ChequearEspacio(entrantes);
+
+
+
+            return pedidos; //cambiar lista
         }
 
+        public bool ChequearEspacio(List<bool> lista)
+        {
+            for (int i = 0; i < lista.Count(); i++)
+            {
+                if (lista[i] == false)
+                    return false;
+            }
+            return true;
+        }
 
     }
 }

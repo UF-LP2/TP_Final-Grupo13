@@ -18,7 +18,7 @@ namespace tp_final
     {
         protected List<cElectrodomestico> listaE = new List<cElectrodomestico>();
         protected eTipo tipo;
-        protected int volumen_tot, peso_tot;
+        protected int volumen_tot, peso_tot, ubicacion;
         public int Vol_tot
         {
             get { return volumen_tot; }
@@ -35,11 +35,12 @@ namespace tp_final
         static int contador = 0;
        // protected var fecha;
 
-        public cPedido (List<cElectrodomestico> _lista, eTipo _tipo, int _mes, int _dia)
+        public cPedido (List<cElectrodomestico> _lista, eTipo _tipo, int _mes, int _dia, int _ubi)
         {
             this.listaE = _lista;
             this.tipo = _tipo;
             this.id_pedido = contador;
+            this.ubicacion = _ubi;
             //this.fecha = new Datetime(2000, _mes, _dia, 0, 0, 0);
             for (int i = 0; i < _lista.Count(); i++)
             {

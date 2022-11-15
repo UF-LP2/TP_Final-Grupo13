@@ -16,7 +16,7 @@ namespace tp_final
         }
         protected bool aparato, ahorro;
         static int contador = 123;
-        protected List<cElectrodomestico> listaP;
+        protected List<cPedido> listaP;
         protected float [,] espacio;
 
         public cVehiculo(int _peso, float _largo,float _ancho, float _alto, float _nafta, bool _ahorro, float _consumo)
@@ -25,7 +25,7 @@ namespace tp_final
             this.volumen = _largo*_ancho*_alto;
             this.nafta = _nafta;
             this.consumo = _consumo;
-            this.listaP = new List<cElectrodomestico>();
+            this.listaP = new List<cPedido>();
             this.ahorro = _ahorro;
             this.aparato = false;
             this.patente = contador;
