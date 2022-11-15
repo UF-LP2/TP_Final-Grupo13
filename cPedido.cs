@@ -51,9 +51,10 @@ namespace tp_final
         ~cPedido() {
             listaE.Clear();
         }
-        public bool ProductoEspecial() {
+        public bool LineaB() {
+            cElectrodomestico test = null;
             for (int i = 0; i < listaE.Count(); i++) {
-                if (listaE[i].GetType() == typeof(cLineaBlanca) || listaE[i].GetType() == typeof(cTelevisor)) {
+                if (listaE[i].GetType() == cLineaBlanca) {
                     return true;
                 }
             }
