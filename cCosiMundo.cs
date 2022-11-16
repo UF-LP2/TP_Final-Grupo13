@@ -277,9 +277,9 @@ namespace tp_final
         public Dictionary<int, double> Adyacentes(double[,] matrixCostos, int _nodo)
         {
             Dictionary<int, double> r = new Dictionary<int, double>();
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < 23; i++)//recorros los nodso
             {
-                if (i != _nodo && matrixCostos[i, _nodo] > 0)
+                if (i != _nodo && matrixCostos[i, _nodo] > 0)//1era c: estoy donde quiero ir (inicio=final)||2da c: los nodos ady
                     r.Add(i, matrixCostos[i, _nodo]);
             }
             return r;
@@ -297,18 +297,18 @@ namespace tp_final
         }
         public Stack<int> CaminoMinimo(double[,] matrixCostos, int _inicio, int _fin)
         {
-            int n = 24; //ver si se puede hacer gobal
+            int n = 23; 
             var distancias = new Dictionary<int, double>();
             var padre = new Dictionary<int, int>();
             for (int i = 0; i < n; i++)
             {
-                distancias[i] = 2147483647;
+                distancias[i] = 2147483647;//la + grande que se puede almacenar en c#
             }
             distancias[_inicio] = 0;
-            padre[_inicio] = -1;
+            padre[_inicio] = -1;//el inicio no tiene un nodo anterior
             Queue<int> cola_de_ejecución = new Queue<int>();
             cola_de_ejecución.Enqueue(_inicio);
-            while (cola_de_ejecución.Count != 0)
+            while (cola_de_ejecución.Count() != 0)
             {
                 int v = cola_de_ejecución.Dequeue();
                 if (v == _fin)
@@ -328,20 +328,21 @@ namespace tp_final
         }
         public void Recorrido(cVehiculo _v)
         {
-            _v.repartos.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//los repartos se cargan al camion en orden creciente de peso
-            int anterior = 1;
+            _v.repartos.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//los repartos se cargan al camion en orden decreciente de peso
+            int anterior = 1;//el primer nodo es liners
 
             for (int i = 0; i < _v.repartos.Count(); i++)
             {
                 Stack<int> c = new Stack<int>();
-                c = CaminoMinimo(matrixNodos ,anterior, _v.repartos[i]);
+                c = CaminoMinimo(matrixNodos ,anterior, _v.repartos[i].ubicacion);
                 while(c.Count()>0) {
                     _v.recorrido.Push(c.Pop());
                 }
+                anterior = _v.repartos[i].ubicacion;
              
             }
             _v.recorrido.Push(1);
-
+            _v.recorrido.Reverse();        
 
         }
 
