@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 
 namespace tp_final
@@ -278,7 +279,7 @@ namespace tp_final
         public Stack<int> ConvertirDaQ(Dictionary<int, int> dic, int _inicio, int _fin, double[,] matrixCostos)
         {
             Stack<int> r = new Stack<int>();
-            r.Push(_inicio);
+            
             r.Push(_fin);
             while (dic[r.Peek()] != -1)
             {
@@ -316,6 +317,24 @@ namespace tp_final
 
             }
             return ConvertirDaQ(padre, _inicio, _fin, matrixCostos);
+        }
+        public void Recorrido(cVehiculo _v)
+        {
+            _v.repartos.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//los repartos se cargan al camion en orden creciente de peso
+            int anterior = 1;
+
+            for (int i = 0; i < _v.repartos.Count(); i++)
+            {
+                Stack<int> c = new Stack<int>();
+                c = CaminoMinimo(matrixNodos ,anterior, _v.repartos[i]);
+                while(c.Count()>0) {
+                    _v.recorrido.Push(c.Pop());
+                }
+             
+            }
+            _v.recorrido.Push(1);
+
+
         }
 
     }
