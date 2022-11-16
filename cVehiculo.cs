@@ -25,7 +25,8 @@ namespace tp_final
         }
         protected bool aparato, ahorro;
         static int contador = 123;
-        protected List<cPedido> repartos;
+        public List<cPedido> repartos;
+        public Stack<int> recorrido;
         public List<cPedido> Repartos
         {
             get { return repartos; }
@@ -42,6 +43,7 @@ namespace tp_final
             this.ahorro = _ahorro;
             this.aparato = false;
             this.patente = contador;
+            this.recorrido= new Stack<int>();
             contador++;
             int filas = (int)_largo * 100;
             int columnas = (int)_ancho * 100;
@@ -52,6 +54,7 @@ namespace tp_final
                 }
             }
         }
+       
 
         ~cVehiculo() { 
             repartos.Clear();
