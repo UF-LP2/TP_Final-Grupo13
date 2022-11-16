@@ -129,14 +129,22 @@ namespace tp_final
 
             while (viajes != 0 && pedidosH.Count() != 0)
             {
-                if(viajes == 6) //viaje del furgon
+                if (viajes == 6)
+                { //viaje del furgon
                     cont_especiales = CargaVehiculo(vehiculos[0], cont_especiales);
+                    Recorrido(vehiculos[0]);
+                }
 
                 if (viajes == 5)
+                {
                     cont_especiales = CargaVehiculo(vehiculos[1], cont_especiales);
-
+                    Recorrido(vehiculos[1]);
+                }
                 if (viajes < 5)
-                    cont_especiales = CargaVehiculo(vehiculos[3], cont_especiales);
+                {
+                    cont_especiales = CargaVehiculo(vehiculos[2], cont_especiales);
+                    Recorrido(vehiculos[2]);
+                }
                 viajes--;
             }
 
