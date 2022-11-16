@@ -23,7 +23,9 @@ namespace tp_final
         {
             get { return volumen; }
         }
-        protected bool aparato, ahorro;
+        public bool aparato;
+        protected bool ahorro;
+        public int localidad;
         static int contador = 123;
         public List<cPedido> repartos;
         public Stack<int> recorrido;

@@ -271,6 +271,10 @@ namespace tp_final
                     pedidosH.RemoveAt(k);
                 }
             }
+            if (cont_espe != 0)
+            {
+                vehiculo.aparato = true;
+            }
        
             return cont_espe; 
         }
@@ -334,17 +338,27 @@ namespace tp_final
             for (int i = 0; i < _v.repartos.Count(); i++)
             {
                 Stack<int> c = new Stack<int>();
-                c = CaminoMinimo(matrixNodos ,anterior, _v.repartos[i].ubicacion);
-                while(c.Count()>0) {
+                c = CaminoMinimo(matrixNodos, anterior, _v.repartos[i].ubicacion);
+                while (c.Count() > 0)
+                {
                     _v.recorrido.Push(c.Pop());
                 }
                 anterior = _v.repartos[i].ubicacion;
-             
+
             }
             _v.recorrido.Push(1);
-            _v.recorrido.Reverse();        
+            _v.recorrido.Reverse();
 
+            for (int j = 0; j < _v.recorrido.Count(); j++) //recorro el recorrido sacando los pedidos de la lista del vehiculo
+            {
+                _v.localidad = _v.recorrido.Pop();
+                for (int k = 0; k < _v.Repartos.Count(); k++)
+                {
+                    if (_v.Repartos[k].ubicacion == _v.localidad)
+                        _v.Repartos.RemoveAt(k);
+                }
+            }
         }
-
+        
     }
 }
