@@ -27,21 +27,19 @@ namespace tp_final
         protected bool ahorro;
         public int localidad;
         static int contador = 123;
-        public List<cPedido> repartos;
+        protected Stack<cPedido> repartos;
         public Stack<int> recorrido;
-        public List<cPedido> Repartos
+        public Stack<cPedido> Repartos
         {
             get { return repartos; }
         }
-        protected float [,] espacio;
-
         public cVehiculo(int _peso, float _largo,float _ancho, float _alto, float _nafta, bool _ahorro, float _consumo)
         {
             this.peso = _peso;
-            this.volumen = _largo*_ancho*_alto;
+            this.volumen = _largo * _ancho * _alto;
             this.nafta = _nafta;
             this.consumo = _consumo;
-            this.repartos = new List<cPedido>();
+            this.repartos = new Stack<cPedido>();
             this.ahorro = _ahorro;
             this.aparato = false;
             this.patente = contador;
@@ -49,12 +47,6 @@ namespace tp_final
             contador++;
             int filas = (int)_largo * 100;
             int columnas = (int)_ancho * 100;
-            this.espacio = new float [filas, columnas];
-            for(int i = 0; i < filas; i++){
-                for(int j = 0; j < columnas; j++){
-                    espacio[i,j] = _alto;
-                }
-            }
         }
        
 
@@ -62,5 +54,19 @@ namespace tp_final
             repartos.Clear();
         }
 
+        public void OrdenarPila()
+        {
+            List<cPedido> lista = new List<cPedido>();
+            for (int i = 0; i < repartos.Count(); i++)
+            {
+                lista.Add(repartos.Pop());
+            }
+
+            lista.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));
+            for(int j = 0; j < lista.Count(); j++)
+            {
+                repartos.Push(lista[j]);
+            }
+        }
     }
 }

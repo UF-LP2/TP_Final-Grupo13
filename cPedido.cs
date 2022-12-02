@@ -18,11 +18,16 @@ namespace tp_final
     {
         protected List<cElectrodomestico> listaE = new List<cElectrodomestico>();
         protected eTipo tipo;
-        public int peso_tot, ubicacion;
+        protected int peso_tot, ubicacion;
         protected float volumen_tot;
         public float Vol_tot
         {
             get { return volumen_tot; }
+        }
+
+        public int Ubicacion
+        {
+            get { return ubicacion; }
         }
         public int Peso_tot
         {

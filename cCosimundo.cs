@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace tp_final
 {
@@ -27,7 +28,7 @@ namespace tp_final
 
             this.matrixNodos = new double[24, 24];
             String line;
-            StreamReader sr = new StreamReader("C:\\Users\\lolyy\\OneDrive\\Documentos\\LP2\\nodos.txt");
+            StreamReader sr = new StreamReader("..\\..\\..\\nodos (1).txt");
             
             line = sr.ReadLine();//lee la 1er linea del archivo
            
@@ -152,7 +153,6 @@ namespace tp_final
             // HAY QUE HACERLE UN CIERRE
 
         }
-
         public int CargaVehiculo(cVehiculo vehiculo, int cont_espe)
         {
             for(int y = 0; y < pedidosH.Count; y++)
@@ -160,15 +160,7 @@ namespace tp_final
                 pedidosH[y].SettearTele(vehiculo);  //a las televiciones le ponemos la altura del vehiculo
             }
             int l;
-            List<int> vol = new List<int>();
-            List<int> peso = new List<int>();
-            int acumPeso = 0;
-            for (l = 0; l < pedidosH.Count(); l++)
-            {
-                vol.Add((int)pedidosH[l].Vol_tot); 
-                peso.Add(pedidosH[l].Peso_tot);
-            }
-           
+            int acumPeso = 0;           
             List<int> val = new List<int>();  //val o beneficio son 1 - 2 - 5
             for (l = 0; l < pedidosH.Count(); l++)
             {
@@ -189,7 +181,8 @@ namespace tp_final
 
                 for (j = 0; j < espacio; j++) //j representa las instancias de volumenes
                 {
-                    int volElem_i = vol[i];
+                    int volElem_i = (int)pedidosH[i].Vol_tot;
+                    int pesoElem_i = (int)pedidosH[i].Peso_tot;
                     int gananciaElem_i = val[i];
                     if (i == 0)                                
                     {
@@ -210,10 +203,10 @@ namespace tp_final
                         {
                             mejor = CAP[i - 1, j - volElem_i] + gananciaElem_i;
                         }
-                        if (anterior <= mejor && acumPeso + peso[i] <= peso_permitido) // me fijo que sea mejor el nuevo y que este bajo el peso permitido
+                        if (anterior <= mejor && acumPeso + gananciaElem_i <= peso_permitido) // me fijo que sea mejor el nuevo y que este bajo el peso permitido
                         {
                             CAP[i, j] = mejor;
-                            acumPeso += peso[i];
+                            acumPeso += gananciaElem_i;
                         }
                         else
                         {
@@ -223,49 +216,14 @@ namespace tp_final
                 }
             }
 
-            //en una lista booleana infora si lleva o no el elemento, true = lleva / false = nolleva
-            List<bool> entrantes = new List<bool>();
-            i = elementos - 1;
-            j = espacio;
-            //recorre la matriz de forma inversa, dch-abajo -> izq-arriba 
-            while (true)
-            {
-                int mejor = 0;
-                if (i == 0)  //cuando llega a la ultima pos o ultimo elemento
-                {
-                    if (CAP[i,j] != 0)
-                        entrantes.Add(true);
-                    break;
-                }
-          
-                if (j - vol[i] >= 0)
-                {
-                    mejor = CAP[i - 1, j - vol[i]] + val[i];
-                }
-
-                int anterior = CAP[i - 1, j];
-                if (mejor > anterior) //no toma el =
-                {
-                    j = j - vol[i];
-                    entrantes.Add(true);
-                }
-                else
-                {
-                    entrantes.Add(false);
-                }
-                i = i - 1;
-                
-                if (j < 0)
-                    break;
-            }
-            entrantes.Reverse(); //invierto la lista porq me queda al reves cuando se llena
+            List<bool> carga = ChequeadoDeMatriz(CAP, val, elementos, espacio);
 
             int k;
-            for (k = 0; k < pedidosH.Count(); k++)
+            for (k = 0; k < carga.Count(); k++)
             {
-                if (entrantes[k] == true) //si en la lista booleana marca que lo llevo se lo agrego al camion y se lo saco a pedidos
+                if (carga[k] == true) //si en la lista booleana marca que lo llevo se lo agrego al camion y se lo saco a pedidos
                 {
-                    vehiculo.Repartos.Add(pedidosH[k]);
+                    vehiculo.Repartos.Push(pedidosH[k]);
                     if (pedidosH[k].ProductoEspecial() == true)
                         cont_espe--;
                     pedidosH.RemoveAt(k);
@@ -277,6 +235,48 @@ namespace tp_final
             }
        
             return cont_espe; 
+        }
+        public List<bool> ChequeadoDeMatriz(int[,] matriz, List<int> val, int cantElem, int espacio)
+        {
+            //en una lista booleana infora si lleva o no el elemento, true = lleva / false = nolleva
+            List<bool> entrantes = new List<bool>();
+            int i = cantElem - 1;
+            int j = espacio;
+            //recorre la matriz de forma inversa, dch-abajo -> izq-arriba 
+            while (true)
+            {
+                int mejor = 0;
+                int volElem_i = (int)pedidosH[i].Vol_tot;
+                if (i == 0)  //cuando llega a la ultima pos o ultimo elemento
+                {
+                    if (matriz[i, j] != 0)
+                        entrantes.Add(true);
+                    break;
+                }
+
+                if (j - volElem_i >= 0)
+                {
+                    mejor = matriz[i - 1, j - volElem_i] + val[i];
+                }
+
+                int anterior = matriz[i - 1, j];
+                if (mejor > anterior) //no toma el =
+                {
+                    j = j - volElem_i;
+                    entrantes.Add(true);
+                }
+                else
+                {
+                    entrantes.Add(false);
+                }
+                i = i - 1;
+
+                if (j < 0)
+                    break;
+            }
+            entrantes.Reverse(); //invierto la lista porq me queda al reves cuando se llena
+
+            return entrantes;
         }
         public Dictionary<int, double> Adyacentes(double[,] matrixCostos, int _nodo)
         {
@@ -332,31 +332,27 @@ namespace tp_final
         }
         public void Recorrido(cVehiculo _v)
         {
-            _v.repartos.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//los repartos se cargan al camion en orden decreciente de peso
+            _v.OrdenarPila();//los repartos se cargan al camion en orden decreciente de peso
             int anterior = 1;//el primer nodo es liners
 
-            for (int i = 0; i < _v.repartos.Count(); i++)
+            for (int i = 0; i < _v.Repartos.Count(); i++)
             {
+                cPedido nodo = _v.Repartos.Pop();
                 Stack<int> c = new Stack<int>();
-                c = CaminoMinimo(matrixNodos, anterior, _v.repartos[i].ubicacion);
+                c = CaminoMinimo(matrixNodos, anterior, nodo.Ubicacion);
                 while (c.Count() > 0)
                 {
                     _v.recorrido.Push(c.Pop());
                 }
-                anterior = _v.repartos[i].ubicacion;
+                anterior = nodo.Ubicacion;
 
             }
             _v.recorrido.Push(1);
             _v.recorrido.Reverse();
 
-            for (int j = 0; j < _v.recorrido.Count(); j++) //recorro el recorrido sacando los pedidos de la lista del vehiculo
+            for (int j = 0; j < _v.recorrido.Count(); j++) //recorro el recorrido sacando los pedidos de la pila del vehiculo
             {
-                _v.localidad = _v.recorrido.Pop();
-                for (int k = 0; k < _v.Repartos.Count(); k++)
-                {
-                    if (_v.Repartos[k].ubicacion == _v.localidad)
-                        _v.Repartos.RemoveAt(k);
-                }
+                _v.Repartos.Pop();
             }
         }
         
