@@ -113,18 +113,21 @@ namespace tp_final
             List<cPedido> especiales = new List<cPedido>(); //para poder ordenar bien la lista MAY -> MEN, pero con la LB y las teles adelante
             int i, cont_especiales = 0;
             for (i = 0; i < pedidosH.Count(); i++) {//separamos la linea blanca y a los televisores
-
-                if (pedidosH[i].ProductoEspecial()) {
-                    especiales.Add(pedidosH[i]);
-                    pedidosH.RemoveAt(i);
+                cPedido corriente = pedidosH[i];
+                if (corriente.ProductoEspecial()) {
+                    especiales.Add(corriente);
+                    pedidosH.Remove(corriente);
                     cont_especiales++;
                 }
             }
 
             pedidosH.Sort((a, b) => a.Peso_tot.CompareTo(b.Peso_tot));//ordena la lista de pedidos hoy por peso
 
-            for (i = 0; i < cont_especiales + 1; i++)
-                pedidosH.Add(especiales[i]);          //agrego los especiales al final
+            for (i = 0; i < cont_especiales; i++)
+            {
+                cPedido especial = especiales[i];
+                pedidosH.Add(especial);          //agrego los especiales al final
+            }
             
             pedidosH.Reverse(); //doy vuelta la lista para que queden especiales y despues de mayor peso a menor
 
@@ -231,7 +234,7 @@ namespace tp_final
             }
             if (cont_espe != 0)
             {
-                vehiculo.aparato = true;
+                vehiculo.Aparato = true;
             }
        
             return cont_espe; 
@@ -342,18 +345,14 @@ namespace tp_final
                 c = CaminoMinimo(matrixNodos, anterior, nodo.Ubicacion);
                 while (c.Count() > 0)
                 {
-                    _v.recorrido.Push(c.Pop());
+                    _v.Recorrido.Push(c.Pop());
                 }
                 anterior = nodo.Ubicacion;
 
             }
-            _v.recorrido.Push(1);
-            _v.recorrido.Reverse();
+            _v.Recorrido.Push(1);
+            _v.Recorrido.Reverse();
 
-            for (int j = 0; j < _v.recorrido.Count(); j++) //recorro el recorrido sacando los pedidos de la pila del vehiculo
-            {
-                _v.Repartos.Pop();
-            }
         }
         
     }
