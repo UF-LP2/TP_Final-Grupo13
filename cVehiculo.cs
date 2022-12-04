@@ -23,15 +23,28 @@ namespace tp_final
         {
             get { return volumen; }
         }
-        public bool aparato;
+        protected bool aparato;
+        public bool Aparato
+        {
+            get { return aparato; }
+            set { }
+        }
         protected bool ahorro;
-        public int localidad;
+        protected int localidad;
+        public int Localidad
+        {
+            get { return localidad; }
+        }
         static int contador = 123;
         protected Stack<cPedido> repartos;
-        public Stack<int> recorrido;
+        protected Stack<int> recorrido;
         public Stack<cPedido> Repartos
         {
             get { return repartos; }
+        }
+        public Stack<int> Recorrido
+        {
+            get { return recorrido; }
         }
         public cVehiculo(int _peso, float _largo,float _ancho, float _alto, float _nafta, bool _ahorro, float _consumo)
         {
