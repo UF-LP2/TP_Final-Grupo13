@@ -305,29 +305,29 @@ namespace tp_final
         public Stack<int> CaminoMinimo(double[,] matrixCostos, int _inicio, int _fin)
         {
             int n = 23; 
-            var distancias = new Dictionary<int, double>();
-            var padre = new Dictionary<int, int>();
-            for (int i = 0; i < n; i++)
+            var distancias = new Dictionary<int, double>(); //cada variable <nodo,distancia>
+            var padre = new Dictionary<int, int>(); // variable <nodo, padre> - vision de arbol
+            for (int i = 0; i < n; i++) //recorro cant de grafos
             {
                 distancias[i] = 2147483647;//la + grande que se puede almacenar en c#
             }
-            distancias[_inicio] = 0;
-            padre[_inicio] = -1;//el inicio no tiene un nodo anterior
-            Queue<int> cola_de_ejecución = new Queue<int>();
-            cola_de_ejecución.Enqueue(_inicio);
+            distancias[_inicio] = 0; //distancia al nodo inicio = 0
+            padre[_inicio] = -1; //el inicio no tiene un nodo anterior
+            Queue<int> cola_de_ejecución = new Queue<int>(); 
+            cola_de_ejecución.Enqueue(_inicio); 
             while (cola_de_ejecución.Count() != 0)
-            {
-                int v = cola_de_ejecución.Dequeue();
-                if (v == _fin)
+            {   // v = nodo destino
+                int v = cola_de_ejecución.Dequeue(); 
+                if (v == _fin) //si llega a destino
                     return ConvertirDaQ(padre, _inicio, _fin, matrixCostos);
                 foreach (KeyValuePair<int, double> ady in Adyacentes(matrixCostos, v))//cada adyacente del nodo v
                 {
-                    if (distancias[v] + ady.Value < distancias[ady.Key])
+                    if (distancias[v] + ady.Value < distancias[ady.Key])   //comparacion de distancias
                     {
                         distancias[ady.Key] = distancias[v] + ady.Value;
                         padre[ady.Key] = v;
                     }
-                    cola_de_ejecución.Enqueue(ady.Key);
+                    cola_de_ejecución.Enqueue(ady.Key);  //paso al siguiente elemento
                 }
 
             }
@@ -338,16 +338,16 @@ namespace tp_final
             _v.OrdenarPila();//los repartos se cargan al camion en orden decreciente de peso
             int anterior = 1;//el primer nodo es liners
 
-            for (int i = 0; i < _v.Repartos.Count(); i++)
+            for (int i = 0; i < _v.Repartos.Count(); i++)  //recorro la pila de repartos
             {
-                cPedido nodo = _v.Repartos.Pop();
+                cPedido nodo = _v.Repartos.Pop();    //escojo el primer elem de la pila 
                 Stack<int> c = new Stack<int>();
-                c = CaminoMinimo(matrixNodos, anterior, nodo.Ubicacion);
+                c = CaminoMinimo(matrixNodos, anterior, nodo.Ubicacion);  //lleno la pila aux con caminos minimos
                 while (c.Count() > 0)
                 {
-                    _v.Recorrido.Push(c.Pop());
+                    _v.Recorrido.Push(c.Pop());    //recorrido final de nodo a nodo 
                 }
-                anterior = nodo.Ubicacion;
+                anterior = nodo.Ubicacion; //actualizo ubicacion del vehiculo 
 
             }
             _v.Recorrido.Push(1);
